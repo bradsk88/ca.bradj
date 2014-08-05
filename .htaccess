@@ -1,0 +1,20 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+
+RewriteRule ^(.+)$ /$1.php [L,QSA]
+
+#remove these lines (and the _beforenode directory) once NodeJS is implemented.
+RewriteCond %{HTTP_HOST} ^(www.)?bradj.ca$
+RewriteCond %{REQUEST_URI} !^/_beforenode/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /_beforenode/$1 [L,NC]
+RewriteCond %{HTTP_HOST} ^(www.)?bradj.ca$
+RewriteRule ^(/)?$ _beforenode/index.php [L] 
+
+ErrorDocument 404 /404.php
