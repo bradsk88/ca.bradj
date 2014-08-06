@@ -11,6 +11,7 @@ function compile(str, pth) {
         .set('filename',pth)
         .use(nib())
 }
+
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 app.use(express.logger('dev'))
@@ -23,6 +24,12 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
 	res.render('index',{title: "home"});
-
 })
-app.listen(3000)
+app.get('/picloq', function (req, res) {
+	res.render('picloq/index',{title: "picloq"});
+})
+
+//This can go
+app.locals.pretty = true;
+
+app.listen(80)
